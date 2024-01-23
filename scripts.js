@@ -15,14 +15,14 @@ function getComputerChoice () {
 
 function playRound (computerChoice, playerChoice) {
     if(
-        playerChoice.toLowerCase() === "rock" ||
-        playerChoice.toLowerCase() === "paper" ||
-        playerChoice.toLowerCase() === "scissors"
+        playerChoice.toLowerCase() !== "rock" &&
+        playerChoice.toLowerCase() !== "paper" &&
+        playerChoice.toLowerCase() !== "scissors"
     ) {
-     //logic for comparing computerChoice and playerChoice   
-    } else {
         return alert("You must choose rock, paper or scissors to play the game!");
     }
+    //logic for comparing computerChoice and playerChoice   
+    
 }
 
 playRound(getComputerChoice(), prompt("Rock, paper, or scissors?"));

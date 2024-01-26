@@ -1,4 +1,4 @@
-//****  ROCK PAPER SCISSORS
+/***** ROCK PAPER SCISSORS *****/
 
 function getComputerChoice () {
     const options = ["rock", "paper", "scissors"];
@@ -15,47 +15,25 @@ function playRound (computerChoice, playerChoice) {
         playerChoice.toLowerCase() !== "paper" &&
         playerChoice.toLowerCase() !== "scissors"
     ) {
-        playRound(getComputerChoice(), prompt("You must choose rock, paper or scissors to play the game!! Try again. Rock paper, or scissors?"));
+        return playRound(getComputerChoice(), prompt("You must choose rock, paper or scissors to play the game!! Try again. Rock paper, or scissors?"));
     }
 
-    if(computerChoice === "rock") {
-        if(playerChoice === "rock") {
-            console.log("The computer chose:", computerChoice, "The player chose:", playerChoice, "You are even!");
-           return playRound(getComputerChoice(), prompt("You are even! Try again. Rock paper, or scissors?"));
-        } else if (playerChoice === "paper") {
-            console.log("The computer chose:", computerChoice, "The player chose:", playerChoice);
-            return true;
-        } else {
-            console.log("The computer chose:", computerChoice, "The player chose:", playerChoice);
-            return false;
-        }
-    } else if (computerChoice === "paper") {
-        if(playerChoice === "paper") {
-            console.log("The computer chose:", computerChoice, "The player chose:", playerChoice, "You are even!");
-           return playRound(getComputerChoice(), prompt("You are even! Try again. Rock paper, or scissors?"));
+    console.log(`PLAYER: ${playerChoice}. COMPUTER: ${computerChoice}.`)
 
-        } else if (playerChoice === "scissors") {
-            console.log("The computer chose:", computerChoice, "The player chose:", playerChoice);
-            return true;
-
-        } else {
-            console.log("The computer chose:", computerChoice, "The player chose:", playerChoice);
-            return false;
-
-        }
-    } else if (computerChoice === "scissors") {
-        if(playerChoice === "scissors") {
-            console.log("The computer chose:", computerChoice, "The player chose:", playerChoice, "You are even!");
-            return playRound(getComputerChoice(), prompt("You are even! Try again. Rock paper, or scissors?"));
-        } else if (playerChoice === "rock") {
-            console.log("The computer chose:", computerChoice, "The player chose:", playerChoice);
-            return true;
-        } else {
-            console.log("The computer chose:", computerChoice, "The player chose:", playerChoice);
-            return false;
-        }
+    if(playerChoice === computerChoice) {
+        console.log(`It is a tie!`)
+        return playRound(getComputerChoice(), prompt("It is a tie! Try again. Rock paper, or scissors?"));
+    } else if (
+        playerChoice === "rock" && computerChoice === "scissors" ||
+        playerChoice === "paper" && computerChoice === "rock" ||
+        playerChoice === "scissors" && computerChoice === "paper"
+    ) {
+        console.log("The player won this round.");
+        return true;
+    } else {
+        console.log("The computer won this round.");
+        return false;
     }
-
 }
 
 function game () {
@@ -67,21 +45,23 @@ function game () {
         let score = playRound(getComputerChoice(), prompt("Rock, paper, or scissors?"));
        
         if(score) {
-            console.log("You won this round!")
             playerScore = playerScore + 1;
         } else {
-            console.log("The computer won this round!");
             computerScore = computerScore + 1;
         }
-        console.log(`THE SCORE IS: Player: ${playerScore}, Computer: ${computerScore}.`)
+        console.log(`THE SCORE IS: 
+        PLAYER: ${playerScore}
+        COMPUTER: ${computerScore}.`);
         
     }
 
     if(playerScore > computerScore) {
-        console.log(`You won! Your score was ${playerScore} and the computer got ${computerScore}.`);
+        console.log(`The game has ended. 
+        You won! Your score was ${playerScore} and the computer got ${computerScore}.`);
 
     } else {
-        console.log(`You lost! Your score was ${playerScore} and the computer got ${computerScore}.`);
+        console.log(`The game has ended. 
+        You lost! Your score was ${playerScore} and the computer got ${computerScore}.`);
     }
 
 }

@@ -1,6 +1,8 @@
 /***** ROCK PAPER SCISSORS *****/
 choiceBtns = document.querySelectorAll(".choiceBtn");
-let infoDiv = document.querySelector('.infoDiv');
+let infoDiv = document.querySelector(".infoDiv");
+let roundResultDiv = document.querySelector(".roundResultDiv");
+let finalResultsDiv = document.querySelector(".finalResultsDiv");
 
 choiceBtns.forEach(button => {
     button.addEventListener('click', () => {
@@ -18,7 +20,7 @@ function getComputerChoice () {
 }
 
 function playRound (computerChoice, playerChoice) {
-    console.log(`PLAYER: ${playerChoice}. COMPUTER: ${computerChoice}.`)
+    roundResultDiv.textContent = `Player: ${playerChoice}. Computer: ${computerChoice}`;
 
     if(playerChoice === computerChoice) {
         infoDiv.textContent = "It is a tie! Try again. Rock, paper or scissors?";
@@ -28,42 +30,35 @@ function playRound (computerChoice, playerChoice) {
         playerChoice === "scissors" && computerChoice === "paper"
     ) {
         infoDiv.textContent = "The player won this round";
-        return true;
+        return game(true)
     } else {
         infoDiv.textContent = "The computer won this round";
-        return false;
+        return game(false);
     }
 }
 
-// function game () {
-//     let playerScore = 0;
-//     let computerScore = 0;
+let playerScore = 0;
+let computerScore = 0;
+let round = 0; 
 
-//     for(let i = 1; i < 2; i++) {
-//         console.log("ROUND:", i)
-//         let score = playRound(getComputerChoice(), prompt("Rock, paper, or scissors?"));
-       
-//         if(score) {
-//             playerScore = playerScore + 1;
-//         } else {
-//             computerScore = computerScore + 1;
-//         }
-//         console.log(`THE SCORE IS: 
-//         PLAYER: ${playerScore}
-//         COMPUTER: ${computerScore}.`);
-        
-//     }
+function game (result) {
+    round = round + 1;
 
-//     if(playerScore > computerScore) {
-//         console.log(`The game has ended. 
-//         You won! Your score was ${playerScore} and the computer got ${computerScore}.`);
 
-//     } else {
-//         console.log(`The game has ended. 
-//         You lost! Your score was ${playerScore} and the computer got ${computerScore}.`);
-//     }
+    if(result) {
+        playerScore = playerScore + 1;
+    } else {
+        computerScore = computerScore + 1;
+    }
 
-// }
+    if(round === 5) {
+        playerScore > computerScore 
+        ? finalResultsDiv.innerText = `The game has ended. You won! Your score was ${playerScore} and the computer got ${computerScore}.`
+        : finalResultsDiv.innerText = `The game has ended. You lost! Your score was ${playerScore} and the computer got ${computerScore}.`
+    }
 
-// game()
+}
+
+
+
 

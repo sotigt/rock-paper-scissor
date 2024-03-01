@@ -1,8 +1,13 @@
 /***** ROCK PAPER SCISSORS *****/
-choiceBtns = document.querySelectorAll(".choiceBtn");
-let infoDiv = document.querySelector(".infoDiv");
-let roundResultDiv = document.querySelector(".roundResultDiv");
-let finalResultsDiv = document.querySelector(".finalResultsDiv");
+const choiceBtns = document.querySelectorAll(".choiceBtn");
+const infoDiv = document.querySelector(".infoDiv");
+const roundResultDiv = document.querySelector(".roundResultDiv");
+const finalResultsDiv = document.querySelector(".finalResultsDiv");
+const currentScore = document.querySelector(".currentScoreDiv");
+
+/*** game variables ***/
+let playerScore = 0
+let computerScore = 0;
 
 choiceBtns.forEach(button => {
     button.addEventListener('click', () => {
@@ -20,6 +25,13 @@ function getComputerChoice () {
 }
 
 function playRound (computerChoice, playerChoice) {
+    /* restarts the game */
+    if(playerScore === 5 || computerScore === 5) {
+        finalResultsDiv.innerText = "";
+        playerScore = 0;
+        computerScore = 0;
+    }
+
     roundResultDiv.textContent = `Player: ${playerChoice}. Computer: ${computerChoice}`;
 
     if(playerChoice === computerChoice) {
@@ -30,34 +42,25 @@ function playRound (computerChoice, playerChoice) {
         playerChoice === "scissors" && computerChoice === "paper"
     ) {
         infoDiv.textContent = "The player won this round";
-        return game(true)
-    } else {
-        infoDiv.textContent = "The computer won this round";
-        return game(false);
-    }
-}
-
-let playerScore = 0;
-let computerScore = 0;
-let round = 0; 
-
-function game (result) {
-    round = round + 1;
-
-
-    if(result) {
         playerScore = playerScore + 1;
     } else {
+        infoDiv.textContent = "The computer won this round";
         computerScore = computerScore + 1;
     }
 
-    if(round === 5) {
+    currentScore.textContent = `The score is ${playerScore} to the player and ${computerScore} to the computer.`
+
+
+    if(playerScore === 5 || computerScore === 5) {
         playerScore > computerScore 
         ? finalResultsDiv.innerText = `The game has ended. You won! Your score was ${playerScore} and the computer got ${computerScore}.`
         : finalResultsDiv.innerText = `The game has ended. You lost! Your score was ${playerScore} and the computer got ${computerScore}.`
-    }
 
+        currentScore.textContent = "";
+    }
 }
+
+
 
 
 
